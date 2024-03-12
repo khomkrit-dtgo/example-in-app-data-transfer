@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <script>getUserProfile.postMessage('{ "clientId": "1cc0671e-9b68-4661-bd6d-d41efdb231ce" }');</script>
+
+  <p>6 FEB 2024</p>
+  <button onclick="closeWebView()">Close</button>
+  <button onclick="reloadWebView()">Reload</button>
+  <button onclick="goBack()">Back</button>
+  <button onclick="showMyQrCode()">Show My QR Code</button>
+  <button onclick="openService()">OpenService</button>
+
+  <div id="result">
+    <ul>
+      <li id="qr"></li>
+      <li id="qrExpire"></li>
+      <li id="uuid"></li>
+      <li id="accessToken"></li>
+      <li id="fullname"></li>
+      <li id="phoneNumber"></li>
+      <li id="lang"></li>
+      <li id="projectCode"></li>
+      <li id="projectNameEN"></li>
+      <li id="projectNameTH"></li>
+      <li id="unitNumber"></li>
+      <li id="houseNumber"></li>
+      <li id="latitude"></li>
+      <li id="longitude"></li>
+    </ul>
+    <div id="data"></div>
+  </div>
+
+  <script>
+    function closeWebView() {
+      webview.postMessage('close');
+    }
+    function reloadWebView() {
+      webview.postMessage('reload');
+    }
+    function goBack() {
+      webview.postMessage('back');
+    }
+
+    function showMyQrCode() {
+      mqdcHome.postMessage('{"clientId":"12345", "action": "showMyQrCode", "payload": {}}');
+    }
+
+    function openService() {
+      mqdcHome.postMessage('{"clientId":"12345", "action": "openService", "payload": { "serviceId": "964aef5f-76e2-4b6a-86e8-c0f0c21c27e5"}}');
+    }
+    
+    function currentUserProfile(data) {
+      document.getElementById('qr').innerText = 'qr: ' + data['qr']['code'];
+      document.getElementById('qrExpire').innerText = 'qrExpire: ' + data['qr']['expire_at'];
+      document.getElementById('uuid').innerText = 'uuid:' + data['uuid'];
+      document.getElementById('accessToken').innerText = 'accessToken:' + data['access_token'];
+      document.getElementById('fullname').innerText = 'fullname:' + data['fullname'];
+      document.getElementById('phoneNumber').innerText = 'phoneNumber:' + data['phone_number'];
+      document.getElementById('lang').innerText = 'lang:' + data['lang'];
+      document.getElementById('projectCode').innerText = 'projectCode: ' + data['project_code'];
+      document.getElementById('projectNameEN').innerText = 'project_name_en: ' + data['project_name_en'];
+      document.getElementById('projectNameTH').innerText = 'project_name_th: ' + data['project_name_th'];
+      document.getElementById('unitNumber').innerText = 'unit_number: ' + data['unit_number'];
+      document.getElementById('houseNumber').innerText = 'house_number: ' + data['house_number'];
+      document.getElementById('data').innerText = JSON.stringify(data);
+      document.getElementById('latitude').innerText = 'latitude: ' + data['location']['latitude'];
+      document.getElementById('longitude').innerText = 'longitude: ' + data['location']['longitude'];
+    }
+  </script>
+</body>
+</html>
