@@ -13,8 +13,14 @@
   <button onclick="closeWebView()">Close</button>
   <button onclick="reloadWebView()">Reload</button>
   <button onclick="goBack()">Back</button>
+  <hr/>
+  <p><button onclick="openAnnualCheckupService()">Open Annual Checkup</button></p>
+  <p><button onclick="openRepairService()">Open Repair Service</button>
+    <br/>Case ID:<input type="text" value="8140" id="caseId"/>
+    <br/>Case Type: <input type="text" value="service-repair" id="caseType"/>
+  </p>
+  <hr/>
   <button onclick="showMyQrCode()">Show My QR Code</button>
-  <button onclick="openService()">OpenService</button>
   <button onclick="saveImageFromBase64()">Save Image Base64</button>
   <p>Example</p>
   <div id="result">
@@ -52,8 +58,14 @@
       mqdcHome.postMessage('{"clientId":"12345", "action": "showMyQrCode", "payload": {}}');
     }
 
-    function openService() {
-      mqdcHome.postMessage('{"clientId":"12345", "action": "openService", "payload": { "serviceId": "964aef5f-76e2-4b6a-86e8-c0f0c21c27e5"}}');
+    function openAnnualCheckupService() {
+      mqdcHome.postMessage('{"clientId":"12345", "action": "openService", "payload": { "serviceId": "1e20cf6e-1904-4578-80c1-9fe52e57b1ee"}}');
+    }
+
+    function openRepairService() {
+      let caseType = document.getElementById("caseType").value;
+      let caseId = document.getElementById("caseId").value;
+      mqdcHome.postMessage(`{"clientId":"12345", "action": "openService", "payload": { "serviceId": "2a9db7fc-1b9e-48ba-9651-a1de38c178cd", "params": { "caseId": "${caseId}", "caseType": "${caseType}"}}}`);
     }
 
     function saveImageFromBase64() {
